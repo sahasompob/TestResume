@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testanymind.databinding.ItemWorkSummaryBinding
+import com.example.testanymind.databinding.ItemResumeWorkSummaryBinding
 
 class ResumeWorkSummaryAdapter() : RecyclerView.Adapter<ResumeWorkSummaryViewHolder>() {
 
@@ -12,7 +12,7 @@ class ResumeWorkSummaryAdapter() : RecyclerView.Adapter<ResumeWorkSummaryViewHol
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResumeWorkSummaryViewHolder {
         val binding =
-            ItemWorkSummaryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemResumeWorkSummaryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ResumeWorkSummaryViewHolder(binding)
     }

@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/fragment_resume_input.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/item_resume_education_detail.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/item_resume_project_detail.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/item_resume_skill.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/item_resume_work_summary.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/view_resume_education_details_dialog.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/view_resume_project_details_dialog.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/view_resume_skill_dialog.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/layout/view_resume_work_summary_dialog.xml" value="0.19427083333333334" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

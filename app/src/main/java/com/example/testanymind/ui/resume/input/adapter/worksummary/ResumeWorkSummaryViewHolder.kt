@@ -2,9 +2,9 @@ package com.example.testanymind.ui.resume.input.adapter.worksummary
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testanymind.databinding.ItemWorkSummaryBinding
+import com.example.testanymind.databinding.ItemResumeWorkSummaryBinding
 
-class ResumeWorkSummaryViewHolder(val binding: ItemWorkSummaryBinding) :
+class ResumeWorkSummaryViewHolder(val binding: ItemResumeWorkSummaryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("SetTextI18n")
