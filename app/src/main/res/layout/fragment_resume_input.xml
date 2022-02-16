@@ -63,6 +63,7 @@
                         android:id="@+id/edit_text_mobile_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.mobileNumber}"
                         android:textAppearance="@style/CustomTextAppearance" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +80,7 @@
                         android:id="@+id/edit_text_career_objective"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.careerObjective}"
                         android:inputType="text"
                         android:textAppearance="@style/CustomTextAppearance" />
 
@@ -96,6 +98,7 @@
                         android:id="@+id/edit_text_residence_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.residenceAddress}"
                         android:inputType="text"
                         android:textAppearance="@style/CustomTextAppearance" />
 
@@ -114,6 +117,7 @@
                         android:id="@+id/edit_text_email_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.email}"
                         android:inputType="text"
                         android:textAppearance="@style/CustomTextAppearance" />
 
@@ -131,6 +135,7 @@
                         android:id="@+id/edit_text_total_year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.totalYear}"
                         android:inputType="text"
                         android:textAppearance="@style/CustomTextAppearance" />
 

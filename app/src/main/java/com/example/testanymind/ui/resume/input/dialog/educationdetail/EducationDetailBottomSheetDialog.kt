@@ -33,7 +33,7 @@ class EducationDetailBottomSheetDialog : BottomSheetDialogFragment() {
     private fun setupView() {
         binding.buttonAddEducationDetails.setOnClickListener {
             val item = ResumeEducationDetailItem(
-                id = hashCode().toString(),
+                id = hashCode(),
                 className = binding.editTextClass.text.toString().trim(),
                 passingYear = binding.editTextPassingYear.text.toString().trim(),
                 percentageGPA = binding.editTextPercentageGpa.text.toString().trim()

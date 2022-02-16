@@ -33,7 +33,7 @@ class ProjectDetailBottomSheetDialog : BottomSheetDialogFragment() {
     private fun setupView() {
         binding.buttonAddProjectDetails.setOnClickListener {
             val item = ResumeProjectDetailItem(
-                id = hashCode().toString(),
+                id = hashCode(),
                 projectName = binding.editTextProjectName.text.toString().trim(),
                 teamSize = binding.editTextTeamSize.text.toString().trim(),
                 projectSummary = binding.editTextProjectSummary.text.toString().trim(),

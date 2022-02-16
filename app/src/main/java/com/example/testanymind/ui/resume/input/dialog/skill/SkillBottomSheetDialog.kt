@@ -33,7 +33,7 @@ class SkillBottomSheetDialog : BottomSheetDialogFragment() {
     private fun setupView() {
         binding.buttonAddSkill.setOnClickListener {
             val item = ResumeSkillItem(
-                id = hashCode().toString(),
+                id = hashCode(),
                 skill = binding.editTextSkill.text.toString().trim()
             )
             onAddButtonClick?.invoke(item, ActionClick.ADD)

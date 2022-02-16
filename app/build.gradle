@@ -11,7 +11,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.kotlinroomdatabase"
+        applicationId "com.example.testanymind"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
@@ -68,8 +68,17 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil:1.0.0-rc3")
 
+    // Koin
+    implementation 'org.koin:koin-android:2.0.0-rc-2'
+    implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
+    implementation 'org.koin:koin-androidx-scope:2.0.0-rc-2'
+
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5"
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
 }

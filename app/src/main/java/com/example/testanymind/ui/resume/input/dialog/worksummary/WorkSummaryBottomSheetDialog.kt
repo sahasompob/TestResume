@@ -33,7 +33,7 @@ class WorkSummaryBottomSheetDialog : BottomSheetDialogFragment() {
     private fun setupView() {
         binding.buttonAddWorkSummary.setOnClickListener {
             val item = ResumeWorkSummaryItem(
-                id = hashCode().toString(),
+                id = hashCode(),
                 companyName = binding.editTextCompany.text.toString().trim(),
                 duration = binding.editTextDuration.text.toString().trim()
             )

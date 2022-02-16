@@ -1,14 +1,29 @@
 package com.example.testanymind.ui.resume.input
 
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.testanymind.data.model.SaveResume
 import com.example.testanymind.ui.base.BaseViewModel
 import com.example.testanymind.ui.resume.input.adapter.educationdetails.ResumeEducationDetailItem
 import com.example.testanymind.ui.resume.input.adapter.projectdetails.ResumeProjectDetailItem
 import com.example.testanymind.ui.resume.input.adapter.skill.ResumeSkillItem
 import com.example.testanymind.ui.resume.input.adapter.worksummary.ResumeWorkSummaryItem
 import com.example.testanymind.ui.resume.input.dialog.ActionClick
+import com.example.testanymind.usecase.SaveResumeUseCase
+import kotlinx.coroutines.launch
 
-class ResumeInputViewModel : BaseViewModel() {
+class ResumeInputViewModel(
+    private val saveResumeUseCase: SaveResumeUseCase
+) : BaseViewModel() {
+
+    val picture = MutableLiveData("")
+    val mobileNumber = MutableLiveData("")
+    val residenceAddress = MutableLiveData("")
+    val email = MutableLiveData("")
+    val careerObjective = MutableLiveData("")
+    val totalYear = MutableLiveData("")
 
     val resumeWorkSummaryList: MutableLiveData<List<ResumeWorkSummaryItem>> = MutableLiveData(emptyList())
     val resumeSkillList: MutableLiveData<List<ResumeSkillItem>> = MutableLiveData(emptyList())
@@ -16,6 +31,10 @@ class ResumeInputViewModel : BaseViewModel() {
     val resumeProjectDetailList: MutableLiveData<List<ResumeProjectDetailItem>> = MutableLiveData(emptyList())
 
     fun setUp() {}
+
+    fun setPicture(uri: Uri?) {
+        picture.value = uri.toString()
+    }
 
     fun handleWorkSummaryClick(workSummaryItem: ResumeWorkSummaryItem, actionClick: ActionClick) {
         when (actionClick) {
@@ -112,4 +131,76 @@ class ResumeInputViewModel : BaseViewModel() {
             resumeProjectDetailList.value = newList
         }
     }
+
+    fun saveResume() {
+        viewModelScope.launch {
+            val saveResume = SaveResume(
+                resume = SaveResume.Resume(
+                    id = hashCode(),
+                    residenceAddress = residenceAddress.value.orEmpty(),
+                    picture = picture.value.orEmpty(),
+                    mobileNumber = mobileNumber.value.orEmpty(),
+                    careerObjective = careerObjective.value.orEmpty(),
+                    totalYear = totalYear.value.orEmpty(),
+                    email = email.value.orEmpty()
+                ),
+                skillList = getSkills(),
+                workSummaryList = getWorkSummary(),
+                educationDetailList = getEducationDetail(),
+                projectDetailList = getProjectDetail(),
+            )
+
+            saveResumeUseCase.execute(SaveResumeUseCase.Input(saveResume))
+                .onSuccess {
+                    Log.d("AAA", "onSuccess")
+                }
+                .onFailure {
+                    Log.d("AAA", "${it.message}")
+                }
+        }
+    }
+
+    private fun getSkills(): List<SaveResume.Skill> {
+        return resumeSkillList.value?.map {
+            SaveResume.Skill(
+                id = it.id,
+                name = it.skill
+            )
+        } ?: emptyList()
+    }
+
+    private fun getWorkSummary(): List<SaveResume.WorkSummary> {
+        return resumeWorkSummaryList.value?.map {
+            SaveResume.WorkSummary(
+                id = it.id,
+                companyName = it.companyName,
+                duration = it.duration,
+            )
+        } ?: emptyList()
+    }
+
+    private fun getProjectDetail(): List<SaveResume.ProjectDetail> {
+        return resumeProjectDetailList.value?.map {
+            SaveResume.ProjectDetail(
+                id = it.id,
+                projectName = it.projectName,
+                teamSize = it.teamSize,
+                projectSummary = it.projectSummary,
+                technologyUsed = it.technologyUsed,
+                role = it.role
+            )
+        } ?: emptyList()
+    }
+
+    private fun getEducationDetail(): List<SaveResume.EducationDetail> {
+        return resumeEducationDetailList.value?.map {
+            SaveResume.EducationDetail(
+                id = it.id,
+                className = it.className,
+                passingYear = it.passingYear,
+                percentageGPA = it.percentageGPA
+            )
+        } ?: emptyList()
+    }
+
 }

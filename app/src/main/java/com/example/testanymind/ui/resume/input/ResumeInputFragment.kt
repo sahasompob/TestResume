@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testanymind.R
 import com.example.testanymind.databinding.FragmentResumeInputBinding
@@ -21,6 +20,7 @@ import com.example.testanymind.ui.resume.input.dialog.educationdetail.EducationD
 import com.example.testanymind.ui.resume.input.dialog.projectdetail.ProjectDetailBottomSheetDialog
 import com.example.testanymind.ui.resume.input.dialog.skill.SkillBottomSheetDialog
 import com.example.testanymind.ui.resume.input.dialog.worksummary.WorkSummaryBottomSheetDialog
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInputBinding>() {
 
@@ -40,7 +40,7 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
         ResumeProjectDetailAdapter()
     }
 
-    override val viewModel by viewModels<ResumeInputViewModel>()
+    override val viewModel : ResumeInputViewModel by viewModel()
 
     override fun getLayoutId(): Int = R.layout.fragment_resume_input
 
@@ -78,6 +78,10 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
 
         binding.buttonAddProjectDetails.setOnClickListener {
             openProjectDetailsDialog()
+        }
+
+        binding.addBtn.setOnClickListener {
+            viewModel.saveResume()
         }
     }
 
@@ -203,6 +207,7 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             renderImageURI(data?.data)
+            viewModel.setPicture(data?.data)
         }
     }
 
