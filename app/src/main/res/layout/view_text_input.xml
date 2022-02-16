@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/text_input_white_background_normal"
+            android:gravity="top|left"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:minHeight="56dp"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            android:scrollbars="vertical"
+            android:textColorHint="@color/grey"
+            tools:text="Content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:visibility="gone"
+            tools:text="errors" />
+
+    </LinearLayout>
+
+</layout>

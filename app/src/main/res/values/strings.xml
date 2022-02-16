@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">TestAnyMind</string>
+    <string name="resume_input_mobile_number">Mobile number</string>
+    <string name="resume_input_email">Email Address</string>
+    <string name="resume_input_residence">Residence Address</string>
+    <string name="resume_input_career_objective">Career Objective</string>
+    <string name="resume_input_total_year">Total Years of experience</string>
+    <string name="resume_input_work_summary">Work Summary</string>
+    <string name="resume_input_company_name">Company Name</string>
+    <string name="resume_input_duration">Duration</string>
+    <string name="resume_input_skills">Skills</string>
+    <string name="resume_input_education_details">Education Details</string>
+    <string name="resume_input_class">Class</string>
+    <string name="resume_input_passing_year">Passing year</string>
+    <string name="resume_input_percentage_gpa">Percentage/CGPA</string>
+    <string name="resume_input_project_details">Project Details</string>
+    <string name="resume_input_project_name">Project Name</string>
+    <string name="resume_input_team_size">Team Size</string>
+    <string name="resume_input_project_summary">Project Summary</string>
+    <string name="resume_input_technology_used">Technology used</string>
+    <string name="resume_input_role">Role</string>
+    <string name="resume_input_add">Add</string>
+</resources>
