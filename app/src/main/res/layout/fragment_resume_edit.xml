@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.testanymind.ui.resume.edit.ResumeEditViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_standard"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/relative_layout_profile_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/image_view_avatar"
+                        android:layout_width="@dimen/icon_size_default"
+                        android:layout_height="@dimen/icon_size_default"
+                        android:src="@drawable/ic_default_profile" />
+
+                    <ImageView
+                        android:id="@+id/image_view_add_avatar"
+                        android:layout_width="@dimen/icon_size_smallest"
+                        android:layout_height="@dimen/icon_size_smallest"
+                        android:layout_marginStart="@dimen/spacing_large"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:src="@drawable/ic_add" />
+
+                </RelativeLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_text_lay_out_mobile_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/resume_input_mobile_number"
+                    app:errorTextColor="@color/error">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_mobile_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.mobileNumber}"
+                        android:textAppearance="@style/CustomTextAppearance" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_text_lay_out_career_objective"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/resume_input_career_objective"
+                    app:errorTextColor="@color/error">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_career_objective"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.careerObjective}"
+                        android:inputType="text"
+                        android:textAppearance="@style/CustomTextAppearance" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_text_lay_out_residence_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/resume_input_residence"
+                    app:errorTextColor="@color/error">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_residence_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.residenceAddress}"
+                        android:inputType="text"
+                        android:textAppearance="@style/CustomTextAppearance" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_text_lay_out_email_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/resume_input_email"
+                    app:errorTextColor="@color/error">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_email_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.email}"
+                        android:inputType="text"
+                        android:textAppearance="@style/CustomTextAppearance" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_text_lay_out_total_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/resume_input_total_year"
+                    app:errorTextColor="@color/error">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_total_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.totalYear}"
+                        android:inputType="text"
+                        android:textAppearance="@style/CustomTextAppearance" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Work Summary -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_standard"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_work_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/resume_input_work_summary"
+                        android:textAppearance="@style/CustomTextAppearance.Bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/button_add_work_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_24"
+                        android:text="@string/resume_input_add"
+                        android:textAppearance="@style/CustomTextAppearance"
+                        android:textColor="@color/green"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_work_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_standard"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_work_summary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Skill -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_standard"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_skill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/resume_input_skills"
+                        android:textAppearance="@style/CustomTextAppearance.Bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/button_add_skill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_24"
+                        android:text="@string/resume_input_add"
+                        android:textAppearance="@style/CustomTextAppearance"
+                        android:textColor="@color/green"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_skill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_standard"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_skill" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Education Details -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_standard"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_education_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/resume_input_education_details"
+                        android:textAppearance="@style/CustomTextAppearance.Bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/button_add_education_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_24"
+                        android:text="@string/resume_input_add"
+                        android:textAppearance="@style/CustomTextAppearance"
+                        android:textColor="@color/green"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_education_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_standard"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_education_details" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- Project Details -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_standard"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_project_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/resume_input_project_details"
+                        android:textAppearance="@style/CustomTextAppearance.Bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/button_add_project_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_24"
+                        android:text="@string/resume_input_add"
+                        android:textAppearance="@style/CustomTextAppearance"
+                        android:textColor="@color/green"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_project_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_standard"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_project_details" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/button_update_resume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_standard"
+                    android:text="Update"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

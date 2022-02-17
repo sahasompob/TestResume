@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/list_resume_fragment">
+
+    <fragment
+        android:id="@+id/list_resume_fragment"
+        android:name="com.example.testanymind.ui.resume.list.ResumeListFragment"
+        android:label="fragment_list_resume"
+        tools:layout="@layout/fragment_resume_list">
+
+        <action
+            android:id="@+id/action_list_resume_fragment_to_input_resume_fragment"
+            app:destination="@id/input_resume_fragment" />
+
+        <action
+            android:id="@+id/action_list_resume_fragment_to_edit_resume_fragment"
+            app:destination="@id/edit_resume_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/input_resume_fragment"
+        android:name="com.example.testanymind.ui.resume.input.ResumeInputFragment"
+        android:label="fragment_input_resume"
+        tools:layout="@layout/fragment_resume_input" />
+
+    <fragment
+        android:id="@+id/edit_resume_fragment"
+        android:name="com.example.testanymind.ui.resume.edit.ResumeEditFragment"
+        android:label="fragment_edit_resume"
+        tools:layout="@layout/fragment_resume_edit">
+
+        <argument
+            android:name="resumeId"
+            app:argType="string" />
+
+    </fragment>
+
+</navigation>

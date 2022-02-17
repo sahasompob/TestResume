@@ -28,5 +28,17 @@ data class ResumeEntity(
     val career: String,
     @NotNull
     @ColumnInfo(name = "totalYear")
-    val totalYear: String
+    val totalYear: String,
+    @NotNull
+    @ColumnInfo(name = "skill")
+    val skill: String,
+    @NotNull
+    @ColumnInfo(name = "workSummary")
+    val workSummary: String,
+    @NotNull
+    @ColumnInfo(name = "educationDetail")
+    val educationDetail: String,
+    @NotNull
+    @ColumnInfo(name = "projectDetail")
+    val projectDetail: String
 )

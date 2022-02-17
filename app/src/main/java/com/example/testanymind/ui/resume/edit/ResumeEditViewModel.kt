@@ -1,6 +1,6 @@
-package com.example.testanymind.ui.resume.input
+package com.example.testanymind.ui.resume.edit
 
-import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.testanymind.data.model.SaveResume
@@ -10,28 +10,101 @@ import com.example.testanymind.ui.resume.input.adapter.projectdetails.ResumeProj
 import com.example.testanymind.ui.resume.input.adapter.skill.ResumeSkillItem
 import com.example.testanymind.ui.resume.input.adapter.worksummary.ResumeWorkSummaryItem
 import com.example.testanymind.ui.resume.input.dialog.ActionClick
-import com.example.testanymind.usecase.GetAllResumeUseCase
-import com.example.testanymind.usecase.SaveResumeUseCase
+import com.example.testanymind.usecase.GetResumeByIdUseCase
+import com.example.testanymind.usecase.UpdateResumeUseCase
 import com.example.testanymind.utill.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class ResumeInputViewModel(
-    private val saveResumeUseCase: SaveResumeUseCase
+class ResumeEditViewModel(
+    private val getResumeByIdUseCase: GetResumeByIdUseCase,
+    private val updateResumeUseCase: UpdateResumeUseCase
 ) : BaseViewModel() {
 
-    val picture = MutableLiveData("")
+    val resumeId = MutableLiveData(0)
+    val picture = MutableLiveData<String>()
     val mobileNumber = MutableLiveData("")
     val residenceAddress = MutableLiveData("")
     val email = MutableLiveData("")
     val careerObjective = MutableLiveData("")
     val totalYear = MutableLiveData("")
 
-    val resumeWorkSummaryList: MutableLiveData<List<ResumeWorkSummaryItem>> = MutableLiveData(emptyList())
+    val resumeWorkSummaryList: MutableLiveData<List<ResumeWorkSummaryItem>> =
+        MutableLiveData(emptyList())
     val resumeSkillList: MutableLiveData<List<ResumeSkillItem>> = MutableLiveData(emptyList())
-    val resumeEducationDetailList: MutableLiveData<List<ResumeEducationDetailItem>> = MutableLiveData(emptyList())
-    val resumeProjectDetailList: MutableLiveData<List<ResumeProjectDetailItem>> = MutableLiveData(emptyList())
+    val resumeEducationDetailList: MutableLiveData<List<ResumeEducationDetailItem>> =
+        MutableLiveData(emptyList())
+    val resumeProjectDetailList: MutableLiveData<List<ResumeProjectDetailItem>> =
+        MutableLiveData(emptyList())
+    val updateResumeSuccess = SingleLiveEvent<Unit>()
 
-    val saveResumeSuccess = SingleLiveEvent<Unit>()
+    fun setUp(resumeId: String) {
+        viewModelScope.launch {
+            getResumeByIdUseCase.execute(GetResumeByIdUseCase.Input(resumeId))
+                .onSuccess(::onGetResumeByIdSuccess)
+                .onFailure(::onGetResumeByIdError)
+        }
+    }
+
+    private fun onGetResumeByIdSuccess(resume: SaveResume) {
+        resumeId.value = resume.resume.id
+        picture.value = resume.resume.picture
+        mobileNumber.value = resume.resume.mobileNumber
+        residenceAddress.value = resume.resume.residenceAddress
+        email.value = resume.resume.email
+        careerObjective.value = resume.resume.careerObjective
+        totalYear.value = resume.resume.totalYear
+        resumeSkillList.value = getSkillList(resume.skillList)
+        resumeWorkSummaryList.value = getWorkSummaryList(resume.workSummaryList)
+        resumeEducationDetailList.value = getResumeEducationDetailList(resume.educationDetailList)
+        resumeProjectDetailList.value = getProjectDetailList(resume.projectDetailList)
+    }
+
+    private fun getWorkSummaryList(workSummaryList: List<SaveResume.WorkSummary>): List<ResumeWorkSummaryItem> {
+        return workSummaryList.map {
+            ResumeWorkSummaryItem(
+                id = it.id,
+                companyName = it.companyName,
+                duration = it.duration
+            )
+        }
+    }
+
+    private fun getSkillList(skillList: List<SaveResume.Skill>): List<ResumeSkillItem> {
+        return skillList.map {
+            ResumeSkillItem(
+                id = it.id,
+                skill = it.name,
+            )
+        }
+    }
+
+    private fun getResumeEducationDetailList(educationDetailList: List<SaveResume.EducationDetail>): List<ResumeEducationDetailItem> {
+        return educationDetailList.map {
+            ResumeEducationDetailItem(
+                id = it.id,
+                percentageGPA = it.percentageGPA,
+                passingYear = it.passingYear,
+                className = it.className
+            )
+        }
+    }
+
+    private fun getProjectDetailList(projectDetailList: List<SaveResume.ProjectDetail>): List<ResumeProjectDetailItem> {
+        return projectDetailList.map {
+            ResumeProjectDetailItem(
+                id = it.id,
+                projectName = it.projectName,
+                projectSummary = it.projectSummary,
+                teamSize = it.teamSize,
+                technologyUsed = it.technologyUsed,
+                role = it.role
+            )
+        }
+    }
+
+    private fun onGetResumeByIdError(throwable: Throwable) {
+        Log.d("AAA", "${throwable.message}")
+    }
 
     fun setPicture(imageString: String) {
         picture.value = imageString
@@ -85,7 +158,10 @@ class ResumeInputViewModel(
         }
     }
 
-    fun handleEducationDetailClick(educationDetailItem: ResumeEducationDetailItem, actionClick: ActionClick) {
+    fun handleEducationDetailClick(
+        educationDetailItem: ResumeEducationDetailItem,
+        actionClick: ActionClick
+    ) {
         when (actionClick) {
             ActionClick.ADD -> addEducationDetail(educationDetailItem)
             ActionClick.EDIT -> removeEducationDetail(educationDetailItem)
@@ -109,7 +185,10 @@ class ResumeInputViewModel(
         }
     }
 
-    fun handleProjectDetailClick(projectDetailItem: ResumeProjectDetailItem, actionClick: ActionClick) {
+    fun handleProjectDetailClick(
+        projectDetailItem: ResumeProjectDetailItem,
+        actionClick: ActionClick
+    ) {
         when (actionClick) {
             ActionClick.ADD -> addProjectDetail(projectDetailItem)
             ActionClick.EDIT -> removeProjectDetail(projectDetailItem)
@@ -133,11 +212,11 @@ class ResumeInputViewModel(
         }
     }
 
-    fun saveResume() {
+    fun updateResume() {
         viewModelScope.launch {
-            val saveResume = SaveResume(
+            val resume = SaveResume(
                 resume = SaveResume.Resume(
-                    id = hashCode(),
+                    id = resumeId.value ?: 0,
                     residenceAddress = residenceAddress.value.orEmpty(),
                     picture = picture.value.orEmpty(),
                     mobileNumber = mobileNumber.value.orEmpty(),
@@ -151,11 +230,9 @@ class ResumeInputViewModel(
                 projectDetailList = getProjectDetail(),
             )
 
-            saveResumeUseCase.execute(SaveResumeUseCase.Input(saveResume))
+            updateResumeUseCase.execute(UpdateResumeUseCase.Input(resume))
                 .onSuccess {
-                    saveResumeSuccess.value = Unit
-                }
-                .onFailure {
+                    updateResumeSuccess.value = Unit
                 }
         }
     }

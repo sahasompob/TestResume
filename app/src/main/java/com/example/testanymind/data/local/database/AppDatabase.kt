@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.testanymind.data.model.local.*
 
 @Database(
-    entities = [ResumeEntity::class, ProjectDetailEntity::class, SkillEntity::class, WorkSummaryEntity::class, EducationDetailEntity::class],
+    entities = [ResumeEntity::class],
     version = 1, exportSchema = false
 )
 

@@ -1,6 +1,10 @@
 package com.example.testanymind.data.model
 
 import com.example.testanymind.data.model.local.*
+import com.example.testanymind.ui.resume.input.adapter.worksummary.ResumeWorkSummaryItem
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 data class SaveResume(
     val resume: Resume,
@@ -54,54 +58,32 @@ data class SaveResume(
             mobile = resume.mobileNumber,
             career = resume.careerObjective,
             totalYear = resume.totalYear,
-            email = resume.email
+            email = resume.email,
+            skill = convertSkillToString(),
+            workSummary = convertWorkSummaryToString(),
+            projectDetail = convertProjectDetailToString(),
+            educationDetail = convertEducationDetailToString()
         )
     }
 
-    fun toEducationDetailEntity(): List<EducationDetailEntity> {
-        return educationDetailList.map {
-            EducationDetailEntity(
-                id = it.id,
-                className = it.className,
-                passingYear = it.passingYear,
-                percentGPA = it.percentageGPA,
-                resumeId = resume.id
-            )
-        }
+
+    fun convertSkillToString(): String {
+        val gson = Gson()
+        return gson.toJson(skillList)
     }
 
-    fun toProjectDetailEntity(): List<ProjectDetailEntity> {
-        return projectDetailList.map {
-            ProjectDetailEntity(
-                id = it.id,
-                projectName = it.projectName,
-                teamSize = it.teamSize,
-                projectSummary = it.projectSummary,
-                technologyUsed = it.technologyUsed,
-                role = it.role,
-                resumeId = resume.id
-            )
-        }
+    fun convertWorkSummaryToString(): String {
+        val gson = Gson()
+        return gson.toJson(workSummaryList)
     }
 
-    fun toWorkSummaryEntity(): List<WorkSummaryEntity> {
-        return workSummaryList.map {
-            WorkSummaryEntity(
-                id = it.id,
-                companyName = it.companyName,
-                duration = it.duration,
-                resumeId = resume.id
-            )
-        }
+    fun convertEducationDetailToString(): String {
+        val gson = Gson()
+        return gson.toJson(educationDetailList)
     }
 
-    fun toSkillEntity(): List<SkillEntity> {
-        return skillList.map {
-            SkillEntity(
-                id = it.id,
-                skillName = it.name,
-                resumeId = resume.id
-            )
-        }
+    fun convertProjectDetailToString(): String {
+        val gson = Gson()
+        return gson.toJson(projectDetailList)
     }
 }

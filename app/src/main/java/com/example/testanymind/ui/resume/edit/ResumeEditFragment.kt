@@ -1,4 +1,4 @@
-package com.example.testanymind.ui.resume.input
+package com.example.testanymind.ui.resume.edit
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -6,11 +6,13 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.testanymind.R
-import com.example.testanymind.databinding.FragmentResumeInputBinding
+import com.example.testanymind.databinding.FragmentResumeEditBinding
 import com.example.testanymind.ui.base.BaseFragment
+import com.example.testanymind.ui.resume.input.ResumeInputFragment
 import com.example.testanymind.ui.resume.input.adapter.educationdetails.ResumeEducationDetailAdapter
 import com.example.testanymind.ui.resume.input.adapter.educationdetails.ResumeEducationDetailItem
 import com.example.testanymind.ui.resume.input.adapter.projectdetails.ResumeProjectDetailAdapter
@@ -26,7 +28,9 @@ import com.example.testanymind.ui.resume.input.dialog.worksummary.WorkSummaryBot
 import com.example.testanymind.utill.MediaUtils
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInputBinding>() {
+class ResumeEditFragment : BaseFragment<ResumeEditViewModel, FragmentResumeEditBinding>() {
+
+    private val args by navArgs<ResumeEditFragmentArgs>()
 
     private val resumeWorkSummaryAdapter: ResumeWorkSummaryAdapter by lazy {
         ResumeWorkSummaryAdapter()
@@ -44,9 +48,9 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
         ResumeProjectDetailAdapter()
     }
 
-    override val viewModel : ResumeInputViewModel by viewModel()
+    override val viewModel : ResumeEditViewModel by viewModel()
 
-    override fun getLayoutId(): Int = R.layout.fragment_resume_input
+    override fun getLayoutId(): Int = R.layout.fragment_resume_edit
 
     override fun initView() {
         initRecyclerView()
@@ -56,13 +60,18 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
     override fun initViewModel() {
         binding.viewModel = viewModel
 
+        viewModel.setUp(args.resumeId)
         viewModel.resumeWorkSummaryList.observe(viewLifecycleOwner, ::setWorkSummaryAdapter)
         viewModel.resumeSkillList.observe(viewLifecycleOwner, ::setSkillAdapter)
         viewModel.resumeEducationDetailList.observe(viewLifecycleOwner, ::setEducationDetailAdapter)
         viewModel.resumeProjectDetailList.observe(viewLifecycleOwner, ::setProjectDetailAdapter)
 
-        viewModel.saveResumeSuccess.observeSingle(viewLifecycleOwner, {
-            findNavController().popBackStack()
+        viewModel.picture.observe(viewLifecycleOwner,{
+            renderImageBitmap(MediaUtils.stringToBitmap(it))
+        })
+
+        viewModel.updateResumeSuccess.observe(viewLifecycleOwner, {
+            navigateBack()
         })
     }
 
@@ -87,9 +96,13 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
             openProjectDetailsDialog()
         }
 
-        binding.addBtn.setOnClickListener {
-            viewModel.saveResume()
+        binding.buttonUpdateResume.setOnClickListener {
+            viewModel.updateResume()
         }
+    }
+
+    private fun navigateBack() {
+        findNavController().popBackStack()
     }
 
     private fun initRecyclerView() {
@@ -157,7 +170,7 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
 
     private fun openGallery() {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, GALLERY)
+        startActivityForResult(gallery, PICK_IMAGE)
     }
 
     private fun observeFormErrors() {
@@ -212,7 +225,7 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode != GALLERY || resultCode != RESULT_OK) {
+        if (requestCode != ResumeInputFragment.GALLERY || resultCode != RESULT_OK) {
             return
         }
 
@@ -225,6 +238,6 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
     }
 
     companion object {
-        const val GALLERY = 1
+        const val PICK_IMAGE = 100
     }
 }

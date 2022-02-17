@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/spacing_small"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_view_avatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_default_profile"
+                android:importantForAccessibility="no"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_standard"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:fontFamily="@font/kanit"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/image_view_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_goneMarginEnd="@dimen/spacing_standard"
+                app:layout_goneMarginStart="0dp"
+                tools:text="Mario eieie" />
+
+            <TextView
+                android:id="@+id/text_view_mobile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_standard"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:fontFamily="@font/kanit"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/image_view_avatar"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_name"
+                tools:text="02929292" />
+
+            <TextView
+                android:id="@+id/text_view_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_standard"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:fontFamily="@font/kanit"
+                android:textColor="@color/white"
+                android:background="@color/purple_200"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/image_view_avatar"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_mobile"
+                android:text="edit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

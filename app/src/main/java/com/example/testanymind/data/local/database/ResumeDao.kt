@@ -1,19 +1,20 @@
 package com.example.testanymind.data.local.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import com.example.testanymind.data.model.local.*
+import androidx.room.*
+import com.example.testanymind.data.model.local.ResumeEntity
 
 @Dao
 interface ResumeDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addResume(
-        resumeEntity: ResumeEntity,
-        educationDetailEntity: List<EducationDetailEntity>,
-        projectDetailEntity: List<ProjectDetailEntity>,
-        skillEntity: List<SkillEntity>,
-        workSummaryEntity: List<WorkSummaryEntity>
-    )
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addResume(resumeEntity: ResumeEntity)
+
+    @Update
+    fun updateResume(resumeEntity: ResumeEntity)
+
+    @Query("SELECT * FROM resumeTable")
+    fun getAllResume(): List<ResumeEntity>
+
+    @Query("SELECT * FROM resumeTable WHERE id LIKE :resumeId")
+    fun getResumeById(resumeId: String): ResumeEntity
 }

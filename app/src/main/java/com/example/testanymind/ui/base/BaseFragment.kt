@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment() {
+
     protected abstract val viewModel: VM
     protected lateinit var binding: DB
 
@@ -38,4 +42,5 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
 
         initViewModel()
     }
+
 }
