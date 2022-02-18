@@ -63,7 +63,9 @@
                         android:id="@+id/edit_text_mobile_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:text="@={viewModel.mobileNumber}"
+                        android:maxLength="10"
                         android:textAppearance="@style/CustomTextAppearance" />
 
                 </com.google.android.material.textfield.TextInputLayout>

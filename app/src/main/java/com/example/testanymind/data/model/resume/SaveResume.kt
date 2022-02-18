@@ -1,10 +1,7 @@
-package com.example.testanymind.data.model
+package com.example.testanymind.data.model.resume
 
 import com.example.testanymind.data.model.local.*
-import com.example.testanymind.ui.resume.input.adapter.worksummary.ResumeWorkSummaryItem
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 data class SaveResume(
     val resume: Resume,
@@ -67,23 +64,28 @@ data class SaveResume(
     }
 
 
-    fun convertSkillToString(): String {
+    private fun convertSkillToString(): String {
         val gson = Gson()
         return gson.toJson(skillList)
     }
 
-    fun convertWorkSummaryToString(): String {
+    private fun convertWorkSummaryToString(): String {
         val gson = Gson()
         return gson.toJson(workSummaryList)
     }
 
-    fun convertEducationDetailToString(): String {
+    private fun convertEducationDetailToString(): String {
         val gson = Gson()
         return gson.toJson(educationDetailList)
     }
 
-    fun convertProjectDetailToString(): String {
+    private fun convertProjectDetailToString(): String {
         val gson = Gson()
         return gson.toJson(projectDetailList)
+    }
+
+    private fun test (){
+        val aa = listOf(1,3,3,3,5)
+        aa.count { it == 3 }
     }
 }

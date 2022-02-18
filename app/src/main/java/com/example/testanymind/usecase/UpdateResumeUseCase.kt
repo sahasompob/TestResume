@@ -1,7 +1,7 @@
 package com.example.testanymind.usecase
 
 import com.example.testanymind.base.BaseSuspendUseCase
-import com.example.testanymind.data.model.SaveResume
+import com.example.testanymind.data.model.resume.SaveResume
 import com.example.testanymind.repository.ResumeRepository
 
 class UpdateResumeUseCase(

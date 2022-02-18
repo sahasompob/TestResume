@@ -2,7 +2,7 @@ package com.example.testanymind.resume
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.testanymind.base.test.TestCoroutineRule
-import com.example.testanymind.data.model.SaveResume
+import com.example.testanymind.data.model.resume.SaveResume
 import com.example.testanymind.ui.resume.list.ResumeListViewModel
 import com.example.testanymind.usecase.GetAllResumeUseCase
 import io.mockk.coEvery

@@ -1,7 +1,7 @@
 package com.example.testanymind.repository
 
 import com.example.testanymind.data.local.database.ResumeDao
-import com.example.testanymind.data.model.SaveResume
+import com.example.testanymind.data.model.resume.SaveResume
 import com.example.testanymind.data.model.mapper.ResumeListMapper
 import com.example.testanymind.data.model.mapper.ResumeMapper
 import kotlinx.coroutines.Dispatchers

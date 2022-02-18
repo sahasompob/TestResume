@@ -1,7 +1,7 @@
 package com.example.testanymind.data.model.mapper
 
 import com.example.testanymind.base.Mapper
-import com.example.testanymind.data.model.SaveResume
+import com.example.testanymind.data.model.resume.SaveResume
 import com.example.testanymind.data.model.local.ResumeEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

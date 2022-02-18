@@ -2,9 +2,10 @@ package com.example.testanymind.ui.resume.edit
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.graphics.Bitmap
+import android.graphics.*
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,10 @@ import com.example.testanymind.ui.resume.input.dialog.skill.SkillBottomSheetDial
 import com.example.testanymind.ui.resume.input.dialog.worksummary.WorkSummaryBottomSheetDialog
 import com.example.testanymind.utill.MediaUtils
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+
 
 class ResumeEditFragment : BaseFragment<ResumeEditViewModel, FragmentResumeEditBinding>() {
 
@@ -169,12 +174,9 @@ class ResumeEditFragment : BaseFragment<ResumeEditViewModel, FragmentResumeEditB
     }
 
     private fun openGallery() {
-        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, PICK_IMAGE)
-    }
-
-    private fun observeFormErrors() {
-
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, PICK_IMAGE)
     }
 
     private fun openWorkSummaryDialog() {
@@ -232,12 +234,9 @@ class ResumeEditFragment : BaseFragment<ResumeEditViewModel, FragmentResumeEditB
         val imageUri = data?.data ?: return
         val bitmap = MediaUtils.loadFromGallery(this.requireContext(), imageUri)
         renderImageBitmap(bitmap)
-        val imageString = MediaUtils.uriToString(this.requireContext(), data.data ?: Uri.EMPTY)
-
-        viewModel.setPicture(imageString)
     }
 
     companion object {
-        const val PICK_IMAGE = 100
+        const val PICK_IMAGE = 1012
     }
 }

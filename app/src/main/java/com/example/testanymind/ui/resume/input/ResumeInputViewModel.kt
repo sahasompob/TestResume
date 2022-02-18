@@ -1,18 +1,17 @@
 package com.example.testanymind.ui.resume.input
 
-import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.testanymind.data.model.SaveResume
+import com.example.testanymind.data.model.resume.SaveResume
 import com.example.testanymind.ui.base.BaseViewModel
 import com.example.testanymind.ui.resume.input.adapter.educationdetails.ResumeEducationDetailItem
 import com.example.testanymind.ui.resume.input.adapter.projectdetails.ResumeProjectDetailItem
 import com.example.testanymind.ui.resume.input.adapter.skill.ResumeSkillItem
 import com.example.testanymind.ui.resume.input.adapter.worksummary.ResumeWorkSummaryItem
 import com.example.testanymind.ui.resume.input.dialog.ActionClick
-import com.example.testanymind.usecase.GetAllResumeUseCase
 import com.example.testanymind.usecase.SaveResumeUseCase
 import com.example.testanymind.utill.SingleLiveEvent
+import com.example.testanymind.utill.ValidationUtils
 import kotlinx.coroutines.launch
 
 class ResumeInputViewModel(
@@ -21,10 +20,15 @@ class ResumeInputViewModel(
 
     val picture = MutableLiveData("")
     val mobileNumber = MutableLiveData("")
+    val mobileNumberError = MutableLiveData("")
     val residenceAddress = MutableLiveData("")
+    val residenceAddressError = MutableLiveData("")
     val email = MutableLiveData("")
+    val emailError = MutableLiveData("")
     val careerObjective = MutableLiveData("")
+    val careerObjectiveError = MutableLiveData("")
     val totalYear = MutableLiveData("")
+    val totalYearError = MutableLiveData("")
 
     val resumeWorkSummaryList: MutableLiveData<List<ResumeWorkSummaryItem>> = MutableLiveData(emptyList())
     val resumeSkillList: MutableLiveData<List<ResumeSkillItem>> = MutableLiveData(emptyList())
@@ -151,13 +155,32 @@ class ResumeInputViewModel(
                 projectDetailList = getProjectDetail(),
             )
 
+            if (formIsValid().not()) return@launch
+
             saveResumeUseCase.execute(SaveResumeUseCase.Input(saveResume))
                 .onSuccess {
                     saveResumeSuccess.value = Unit
                 }
-                .onFailure {
-                }
         }
+    }
+
+    private fun formIsValid(): Boolean {
+        mobileNumberError.value =
+            ValidationUtils.validationString(mobileNumber.value.orEmpty(), MOBILE_ERROR)
+        residenceAddressError.value =
+            ValidationUtils.validationString(residenceAddress.value.orEmpty(), RESIDENCE_ERROR)
+        emailError.value =
+            ValidationUtils.validationString(email.value.orEmpty(), EMAIL_ERROR)
+        careerObjectiveError.value =
+            ValidationUtils.validationString(careerObjective.value.orEmpty(), CAREER_OBJ)
+        totalYearError.value =
+            ValidationUtils.validationString(totalYear.value.orEmpty(), TOTAL_YEAR)
+
+        return mobileNumberError.value?.isEmpty() == true &&
+                residenceAddressError.value?.isEmpty() == true &&
+                emailError.value?.isEmpty() == true &&
+                careerObjectiveError.value?.isEmpty() == true &&
+                totalYearError.value?.isEmpty() == true
     }
 
     private fun getSkills(): List<SaveResume.Skill> {
@@ -201,5 +224,13 @@ class ResumeInputViewModel(
                 percentageGPA = it.percentageGPA
             )
         } ?: emptyList()
+    }
+
+    companion object {
+        private const val MOBILE_ERROR = "mobile error"
+        private const val RESIDENCE_ERROR = "residence error"
+        private const val EMAIL_ERROR = "email error"
+        private const val TOTAL_YEAR = "total year error"
+        private const val CAREER_OBJ = "careerObjective error"
     }
 }

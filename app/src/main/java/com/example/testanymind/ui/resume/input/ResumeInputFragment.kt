@@ -64,6 +64,41 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
         viewModel.saveResumeSuccess.observeSingle(viewLifecycleOwner, {
             findNavController().popBackStack()
         })
+
+        viewModel.mobileNumberError.observe(viewLifecycleOwner, {
+            binding.editTextLayOutMobileNumber.apply {
+                isErrorEnabled = it.isNotEmpty()
+                error = it
+            }
+        })
+
+        viewModel.emailError.observe(viewLifecycleOwner, {
+            binding.editTextLayOutEmailAddress.apply {
+                isErrorEnabled = it.isNotEmpty()
+                error = it
+            }
+        })
+
+        viewModel.totalYearError.observe(viewLifecycleOwner, {
+            binding.editTextLayOutTotalYear.apply {
+                isErrorEnabled = it.isNotEmpty()
+                error = it
+            }
+        })
+
+        viewModel.careerObjectiveError.observe(viewLifecycleOwner, {
+            binding.editTextLayOutCareerObjective.apply {
+                isErrorEnabled = it.isNotEmpty()
+                error = it
+            }
+        })
+
+        viewModel.residenceAddressError.observe(viewLifecycleOwner, {
+            binding.editTextLayOutResidenceAddress.apply {
+                isErrorEnabled = it.isNotEmpty()
+                error = it
+            }
+        })
     }
 
     private fun initAction() {
@@ -158,10 +193,6 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
     private fun openGallery() {
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         startActivityForResult(gallery, GALLERY)
-    }
-
-    private fun observeFormErrors() {
-
     }
 
     private fun openWorkSummaryDialog() {

@@ -26,8 +26,6 @@ class ResumeListViewModel(
                         )
                     }
                 }
-                .onFailure {
-                }
         }
     }
 }

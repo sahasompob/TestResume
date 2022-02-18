@@ -1,6 +1,6 @@
 package com.example.testanymind.repository
 
-import com.example.testanymind.data.model.SaveResume
+import com.example.testanymind.data.model.resume.SaveResume
 
 interface ResumeRepository {
     suspend fun saveResume(saveResume: SaveResume)

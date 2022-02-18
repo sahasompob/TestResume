@@ -1,9 +1,8 @@
 package com.example.testanymind.ui.resume.edit
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.testanymind.data.model.SaveResume
+import com.example.testanymind.data.model.resume.SaveResume
 import com.example.testanymind.ui.base.BaseViewModel
 import com.example.testanymind.ui.resume.input.adapter.educationdetails.ResumeEducationDetailItem
 import com.example.testanymind.ui.resume.input.adapter.projectdetails.ResumeProjectDetailItem
@@ -41,7 +40,6 @@ class ResumeEditViewModel(
         viewModelScope.launch {
             getResumeByIdUseCase.execute(GetResumeByIdUseCase.Input(resumeId))
                 .onSuccess(::onGetResumeByIdSuccess)
-                .onFailure(::onGetResumeByIdError)
         }
     }
 
@@ -100,10 +98,6 @@ class ResumeEditViewModel(
                 role = it.role
             )
         }
-    }
-
-    private fun onGetResumeByIdError(throwable: Throwable) {
-        Log.d("AAA", "${throwable.message}")
     }
 
     fun setPicture(imageString: String) {
