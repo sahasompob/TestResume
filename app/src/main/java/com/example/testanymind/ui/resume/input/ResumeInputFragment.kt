@@ -248,7 +248,7 @@ class ResumeInputFragment : BaseFragment<ResumeInputViewModel, FragmentResumeInp
         }
 
         val imageUri = data?.data ?: return
-        val bitmap = MediaUtils.loadFromGallery(this.requireContext(), imageUri)
+        val bitmap = MediaUtils.uriToBitMap(this.requireContext(), imageUri)
         renderImageBitmap(bitmap)
         val imageString = MediaUtils.uriToString(this.requireContext(), data.data ?: Uri.EMPTY)
 

@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream
 
 object MediaUtils {
 
-    fun loadFromGallery(context: Context, imageUri: Uri): Bitmap {
+    fun uriToBitMap(context: Context, imageUri: Uri): Bitmap {
         return context.contentResolver.openInputStream(imageUri).use {
             BitmapFactory.decodeStream(it)
         }

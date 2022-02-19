@@ -2,10 +2,7 @@ package com.example.testanymind.ui.resume.edit
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.graphics.*
-import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
+import android.graphics.Bitmap
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +10,6 @@ import coil.load
 import com.example.testanymind.R
 import com.example.testanymind.databinding.FragmentResumeEditBinding
 import com.example.testanymind.ui.base.BaseFragment
-import com.example.testanymind.ui.resume.input.ResumeInputFragment
 import com.example.testanymind.ui.resume.input.adapter.educationdetails.ResumeEducationDetailAdapter
 import com.example.testanymind.ui.resume.input.adapter.educationdetails.ResumeEducationDetailItem
 import com.example.testanymind.ui.resume.input.adapter.projectdetails.ResumeProjectDetailAdapter
@@ -28,9 +24,6 @@ import com.example.testanymind.ui.resume.input.dialog.skill.SkillBottomSheetDial
 import com.example.testanymind.ui.resume.input.dialog.worksummary.WorkSummaryBottomSheetDialog
 import com.example.testanymind.utill.MediaUtils
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 
 class ResumeEditFragment : BaseFragment<ResumeEditViewModel, FragmentResumeEditBinding>() {
@@ -176,7 +169,7 @@ class ResumeEditFragment : BaseFragment<ResumeEditViewModel, FragmentResumeEditB
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE)
+        startActivityForResult(intent, GALLERY)
     }
 
     private fun openWorkSummaryDialog() {
@@ -227,16 +220,15 @@ class ResumeEditFragment : BaseFragment<ResumeEditViewModel, FragmentResumeEditB
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode != ResumeInputFragment.GALLERY || resultCode != RESULT_OK) {
+        if (requestCode != GALLERY || resultCode != RESULT_OK) {
             return
         }
 
         val imageUri = data?.data ?: return
-        val bitmap = MediaUtils.loadFromGallery(this.requireContext(), imageUri)
-        renderImageBitmap(bitmap)
+        viewModel.setPicture(MediaUtils.uriToString(this.requireContext(), imageUri))
     }
 
     companion object {
-        const val PICK_IMAGE = 1012
+        const val GALLERY = 1012
     }
 }
